@@ -12,6 +12,11 @@
     "prepare": "cd ../ && husky install ./testingfly/.husky",
     "pre-commit": "npm run format && npx lint-staged && npm run test"
   },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx,html}": [
+      "npm run lint"
+    ]
+  },
   "private": true,
   "dependencies": {
     "@angular/animations": "~13.3.0",

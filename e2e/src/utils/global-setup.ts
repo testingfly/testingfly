@@ -21,9 +21,7 @@ async function saveStorage() {
     await page.locator('text=CORP.COM  >> nth=1').click();
     await page.waitForNavigation({ url: '**/network' });
     console.log('Saving auth state...');
-    await page
-      .context()
-      .storageState({ path: 'e2e/src/config/auth.' + env + '.json' });
+    await page.context().storageState({ path: 'e2e/src/config/auth.' + env + '.json' });
     await browser.close();
   }
 }

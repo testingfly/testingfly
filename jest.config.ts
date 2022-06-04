@@ -1,7 +1,6 @@
 module.exports = {
-    preset: 'jest-preset-angular',
-    setupFilesAfterEnv: ['<rootDir>/setup-jest.ts'],
-    globalSetup: 'jest-preset-angular/global-setup',
-    modulePathIgnorePatterns: ['<rootDir>/e2e'],
-  };
-  
+  preset: 'jest-preset-angular',
+  setupFilesAfterEnv: ['<rootDir>/setup-jest.ts'],
+  globalSetup: 'jest-preset-angular/global-setup',
+  modulePathIgnorePatterns: ['<rootDir>/e2e'],
+};

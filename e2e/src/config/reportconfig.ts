@@ -1,12 +1,5 @@
 import { FullConfig } from '@playwright/test';
-import {
-  Reporter,
-  Suite,
-  TestCase,
-  TestError,
-  TestResult,
-  TestStep,
-} from '@playwright/test/reporter';
+import { Reporter, Suite, TestCase, TestError, TestResult, TestStep } from '@playwright/test/reporter';
 
 export default class CustomReporterConfig implements Reporter {
   onBegin(config: FullConfig, suite: Suite) {
@@ -18,9 +11,7 @@ export default class CustomReporterConfig implements Reporter {
   }
 
   onTestEnd(test: TestCase, result: TestResult): void {
-    console.log(
-      `Test Case Completed : ${test.title} Status : ${result.status}`
-    );
+    console.log(`Test Case Completed : ${test.title} Status : ${result.status}`);
   }
 
   onStepBegin(test: TestCase, result: TestResult, step: TestStep): void {

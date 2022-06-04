@@ -17,10 +17,7 @@ export class WebActions {
     this.page.goto(path);
   }
 
-  async waitForElementAttached(
-    locator: string,
-    timeout?: number
-  ): Promise<void> {
+  async waitForElementAttached(locator: string, timeout?: number): Promise<void> {
     if (timeout) {
       await this.page.waitForTimeout(timeout);
     }
@@ -120,28 +117,19 @@ export class WebActions {
     await this.page.fill(locator, text);
   }
 
-  async dragAndDrop(
-    dragElementLocator: string,
-    dropElementLocator: string
-  ): Promise<void> {
+  async dragAndDrop(dragElementLocator: string, dropElementLocator: string): Promise<void> {
     await this.waitForElementAttached(dragElementLocator);
     await this.waitForElementAttached(dropElementLocator);
     await this.page.dragAndDrop(dragElementLocator, dropElementLocator);
   }
 
-  async selectOptionFromDropdown(
-    locator: string,
-    option: string
-  ): Promise<void> {
+  async selectOptionFromDropdown(locator: string, option: string): Promise<void> {
     await this.waitForElementAttached(locator);
     const selectDropDownLocator = await this.page.$(locator);
     selectDropDownLocator?.type(option);
   }
 
-  async selectOptionFromMatSelectDropdown(
-    locator: string,
-    option: string
-  ): Promise<void> {
+  async selectOptionFromMatSelectDropdown(locator: string, option: string): Promise<void> {
     // ".mat-option-text >> text=Absolute"
     await this.page.locator(locator).click();
     await this.page.locator('.mat-option-text >> text=' + option).click();
@@ -149,9 +137,7 @@ export class WebActions {
 
   async getTextFromWebElements(locator: string): Promise<string[]> {
     await this.waitForElementAttached(locator);
-    return this.page.$$eval(locator, (elements) =>
-      elements.map((item) => item.textContent!.trim())
-    );
+    return this.page.$$eval(locator, (elements) => elements.map((item) => item.textContent!.trim()));
   }
 
   async getTextFromWebElement(locator: string): Promise<string | null> {
@@ -160,13 +146,8 @@ export class WebActions {
   }
 
   async downloadFile(locator: string): Promise<string> {
-    const [download] = await Promise.all([
-      this.page.waitForEvent(`download`),
-      this.page.click(locator),
-    ]);
-    await download.saveAs(
-      path.join(__dirname, `../Downloads`, download.suggestedFilename())
-    );
+    const [download] = await Promise.all([this.page.waitForEvent(`download`), this.page.click(locator)]);
+    await download.saveAs(path.join(__dirname, `../Downloads`, download.suggestedFilename()));
     return download.suggestedFilename();
   }
 
@@ -178,10 +159,7 @@ export class WebActions {
     return fs.readFileSync(`${filePath}`, `utf-8`);
   }
 
-  async writeDataIntoTextFile(
-    filePath: number | fs.PathLike,
-    data: string | NodeJS.ArrayBufferView
-  ): Promise<void> {
+  async writeDataIntoTextFile(filePath: number | fs.PathLike, data: string | NodeJS.ArrayBufferView): Promise<void> {
     fs.writeFile(filePath, data, (error) => {
       if (error) throw error;
     });
@@ -193,10 +171,7 @@ export class WebActions {
     expect(textValue?.trim()).toBe(text);
   }
 
-  async verifyElementContainsText(
-    locator: string,
-    text: string
-  ): Promise<void> {
+  async verifyElementContainsText(locator: string, text: string): Promise<void> {
     await this.waitForElementAttached(locator);
     await expect(this.page.locator(locator)).toContainText(text);
   }
@@ -208,9 +183,7 @@ export class WebActions {
     if (await this.isElementDisplayed(additional_result)) {
       await this.clickElement(additional_result);
     }
-    const textValue = await this.page.textContent(
-      '.mat-option >> text=' + text
-    );
+    const textValue = await this.page.textContent('.mat-option >> text=' + text);
     expect(textValue?.trim()).toBe(text);
   }
 
@@ -221,32 +194,20 @@ export class WebActions {
 
   async verifyJSElementValue(locator: string, text: string): Promise<void> {
     await this.waitForElementAttached(locator);
-    const textValue = await this.page.$eval(
-      locator,
-      (element: HTMLInputElement) => element.value
-    );
+    const textValue = await this.page.$eval(locator, (element: HTMLInputElement) => element.value);
     expect(textValue.trim()).toBe(text);
   }
 
-  async verifyElementAttribute(
-    locator: string,
-    attribute: string,
-    value: string
-  ): Promise<void> {
+  async verifyElementAttribute(locator: string, attribute: string, value: string): Promise<void> {
     await this.waitForElementAttached(locator);
     const textValue = await this.page.getAttribute(locator, attribute);
     expect(textValue?.trim()).toBe(value);
   }
 
-  async verifyElementIsDisplayed(
-    locator: string,
-    errorMessage: string
-  ): Promise<void> {
-    await this.page
-      .waitForSelector(locator, { state: `visible`, timeout: waitForElement })
-      .catch(() => {
-        throw new Error(`${errorMessage}`);
-      });
+  async verifyElementIsDisplayed(locator: string, errorMessage: string): Promise<void> {
+    await this.page.waitForSelector(locator, { state: `visible`, timeout: waitForElement }).catch(() => {
+      throw new Error(`${errorMessage}`);
+    });
   }
 
   async isElementDisplayed(locator: string): Promise<boolean> {
@@ -261,11 +222,7 @@ export class WebActions {
     }
   }
 
-  async expectToBeValue(
-    actualValue: string,
-    expectedValue: string,
-    errorMessage: string
-  ): Promise<void> {
+  async expectToBeValue(actualValue: string, expectedValue: string, errorMessage: string): Promise<void> {
     try {
       expect(actualValue.trim()).toBe(expectedValue);
     } catch (exception) {
@@ -273,16 +230,10 @@ export class WebActions {
     }
   }
 
-  async verifySnapshot(
-    screenshot: string,
-    errorMessage: string,
-    locator?: string
-  ): Promise<void> {
+  async verifySnapshot(screenshot: string, errorMessage: string, locator?: string): Promise<void> {
     try {
       if (locator) {
-        expect(await this.page.locator(locator).screenshot()).toMatchSnapshot(
-          screenshot
-        );
+        expect(await this.page.locator(locator).screenshot()).toMatchSnapshot(screenshot);
       } else {
         expect(await this.page.screenshot()).toMatchSnapshot(screenshot);
       }
@@ -291,16 +242,9 @@ export class WebActions {
     }
   }
 
-  async verifyStatusCode(
-    locator: string,
-    code: number,
-    path: string
-  ): Promise<void> {
+  async verifyStatusCode(locator: string, code: number, path: string): Promise<void> {
     // wait for API response
-    const [response] = await Promise.all([
-      this.page.waitForResponse(path),
-      this.page.click(locator),
-    ]);
+    const [response] = await Promise.all([this.page.waitForResponse(path), this.page.click(locator)]);
     expect(response.status()).toEqual(code);
   }
 
@@ -326,5 +270,4 @@ export class WebActions {
       detailedReportOptions: { html: true },
     });
   }
-  
 }

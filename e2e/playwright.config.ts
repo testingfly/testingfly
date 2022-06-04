@@ -9,9 +9,7 @@ if (!ENV) {
 console.log('Target Environment: ', ENV);
 
 if (!['qa', 'dev', 'local', 'default'].includes(ENV)) {
-  console.log(
-    'Invalid ENV variable ' + ENV + '!\n"Usage: npx cross-env ENV=qa|dev"'
-  );
+  console.log('Invalid ENV variable ' + ENV + '!\n"Usage: npx cross-env ENV=qa|dev"');
   process.exit();
 }
 

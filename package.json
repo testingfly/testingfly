@@ -60,6 +60,11 @@
     "@testing-library/angular": "^11.0.4",
     "@types/uuid": "^8.3.4",
     "@typescript-eslint/eslint-plugin": "5.17.0",
-    "@typescript-eslint/parser": "5.17.0"
+    "@typescript-eslint/parser": "5.17.0",
+    "@angular-eslint/builder": "13.2.1",
+    "@angular-eslint/eslint-plugin": "13.2.1",
+    "@angular-eslint/eslint-plugin-template": "13.2.1",
+    "@angular-eslint/schematics": "13.2.1",
+    "@angular-eslint/template-parser": "13.2.1"
   }
 }

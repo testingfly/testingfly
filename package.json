@@ -3,14 +3,14 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
+    "start": "ng serve --port 5100",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "jest",
     "lint": "eslint \"**/*.{js,jsx,ts,tsx,html}\" --quiet --fix",
     "format": "prettier \"**/*.{js,jsx,ts,tsx,html}\" --write --config .prettier.js",
     "prepare": "husky install .husky",
-    "pre-commit": "npm run format && npx lint-staged && npm run test",
+    "pre-commit": "npm run format && npx lint-staged",
     "test:e2e": "cross-env ENV=$npm_config_env ALLURE_RESULTS_DIR=e2e/src/report/allure npx playwright test --config=e2e/playwright.config.ts --project=\"MAP-Chrome\" --headed"
   },
   "lint-staged": {

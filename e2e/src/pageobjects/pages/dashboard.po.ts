@@ -16,7 +16,7 @@ export class DashboardPO {
   }
 
   async verifyPageTitle(): Promise<void> {
-    await webActions.verifyPageTitle('SRC-MAP');
+    await webActions.verifyPageTitle('Testingfly');
   }
 
   async verifyA11y(): Promise<void> {

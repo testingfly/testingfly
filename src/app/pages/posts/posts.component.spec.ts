@@ -1,7 +1,8 @@
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { BlogPostService } from '../../shared/service/blog-post.service';
+import { ContentfulService } from '../../shared/services/contentful.service';
+import { BlogPostService } from '../../shared/services/blog-post.service';
 
 import { PostsComponent } from './posts.component';
 
@@ -13,7 +14,7 @@ describe('PostsComponent', () => {
     await TestBed.configureTestingModule({
       schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
       declarations: [ PostsComponent ],
-      providers: [BlogPostService],
+      providers: [BlogPostService, ContentfulService],
       imports: [HttpClientTestingModule]
     })
     .compileComponents();

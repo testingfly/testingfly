@@ -3,7 +3,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { HomeComponent } from './pages/home/home.component';
 import { AboutComponent } from './pages/about/about.component';
 import { NavbarComponent } from './pages/navbar/navbar.component';
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -16,14 +15,16 @@ import { ViewPostComponent } from './pages/view-post/view-post.component';
 import { HttpClientModule } from '@angular/common/http';
 import { PostsComponent } from './pages/posts/posts.component';
 import { LoadingComponent } from './pages/loading/loading.component';
-import { ApiService } from './shared/service/api.service';
-import { BlogPostService } from './shared/service/blog-post.service';
+import { ApiService } from './shared/services/api.service';
+import { BlogPostService } from './shared/services/blog-post.service';
+import { ContentfulService } from './shared/services/contentful.service';
+import {MatCardModule} from '@angular/material/card'; 
 
 
 @NgModule({
-  declarations: [AppComponent, HomeComponent, AboutComponent, NavbarComponent, ContactComponent, FeaturedPostComponent, RecentPostsComponent, PostsComponent, LoadingComponent, ViewPostComponent],
-  imports: [BrowserModule, AppRoutingModule, BrowserAnimationsModule, MatToolbarModule, MatButtonModule, MatIconModule, HttpClientModule],
-  providers: [ApiService, BlogPostService],
+  declarations: [AppComponent, AboutComponent, NavbarComponent, ContactComponent, FeaturedPostComponent, RecentPostsComponent, PostsComponent, LoadingComponent, ViewPostComponent],
+  imports: [BrowserModule, AppRoutingModule, BrowserAnimationsModule, MatToolbarModule, MatButtonModule, MatIconModule, HttpClientModule, MatCardModule],
+  providers: [ApiService, BlogPostService, ContentfulService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

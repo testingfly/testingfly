@@ -1,6 +1,8 @@
 import { Component, OnInit } from "@angular/core";
+import { ContentfulService } from "../../shared/services/contentful.service";
 import { BlogPost } from "../../shared/models/blog-post";
-import { BlogPostService } from "../../shared/service/blog-post.service";
+import { BlogPostService } from "../../shared/services/blog-post.service";
+import { Entry } from 'contentful';
 
 @Component({
   selector: "app-posts",
@@ -9,18 +11,31 @@ import { BlogPostService } from "../../shared/service/blog-post.service";
 })
 export class PostsComponent implements OnInit {
   loading: boolean = true;
-  posts!: BlogPost[];
+  // posts!: BlogPost[];
+  posts: Entry<any>[] = [];
 
-  constructor(private postService: BlogPostService) {}
 
+  // constructor(private postService: BlogPostService) {}
+
+  // ngOnInit() {
+  //   this.getPosts();
+  // }
+
+  
+
+  constructor(private contentfulService: ContentfulService) { }
+
+  // fetch data on init
   ngOnInit() {
-    this.getPosts();
+    this.contentfulService.getPosts()
+    .then(posts => this.posts = posts)
+    this.loading = false;
   }
 
-  private getPosts(): void {
-    this.postService.GetPosts().subscribe(posts => {
-      this.posts = posts;
-      this.loading = false;
-    });
-  }
+  // private getPosts(): void {
+  //   this.postService.GetPosts().subscribe(posts => {
+  //     this.posts = posts;
+  //     this.loading = false;
+  //   });
+  // }
 }

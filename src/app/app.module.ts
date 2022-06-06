@@ -15,8 +15,6 @@ import { ViewPostComponent } from './pages/view-post/view-post.component';
 import { HttpClientModule } from '@angular/common/http';
 import { PostsComponent } from './pages/posts/posts.component';
 import { LoadingComponent } from './pages/loading/loading.component';
-import { ApiService } from './shared/services/api.service';
-import { BlogPostService } from './shared/services/blog-post.service';
 import { ContentfulService } from './shared/services/contentful.service';
 import {MatCardModule} from '@angular/material/card'; 
 
@@ -24,7 +22,7 @@ import {MatCardModule} from '@angular/material/card';
 @NgModule({
   declarations: [AppComponent, AboutComponent, NavbarComponent, ContactComponent, FeaturedPostComponent, RecentPostsComponent, PostsComponent, LoadingComponent, ViewPostComponent],
   imports: [BrowserModule, AppRoutingModule, BrowserAnimationsModule, MatToolbarModule, MatButtonModule, MatIconModule, HttpClientModule, MatCardModule],
-  providers: [ApiService, BlogPostService, ContentfulService],
+  providers: [ContentfulService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

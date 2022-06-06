@@ -2,11 +2,16 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ContentfulService } from '../../shared/services/contentful.service';
-import { BlogPostService } from '../../shared/services/blog-post.service';
-
 import { PostsComponent } from './posts.component';
 
 describe('PostsComponent', () => {
+  let contentfulService = new ContentfulService();
+  jest.spyOn(contentfulService, 'getBlogPosts');
+  beforeEach(()=> {
+
+
+  })
+
   let component: PostsComponent;
   let fixture: ComponentFixture<PostsComponent>;
 
@@ -14,7 +19,7 @@ describe('PostsComponent', () => {
     await TestBed.configureTestingModule({
       schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
       declarations: [ PostsComponent ],
-      providers: [BlogPostService, ContentfulService],
+      providers: [ContentfulService],
       imports: [HttpClientTestingModule]
     })
     .compileComponents();
@@ -28,5 +33,6 @@ describe('PostsComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+    // expect(contentfulService.getPosts).toHaveBeenCalledTimes(1);
   });
 });

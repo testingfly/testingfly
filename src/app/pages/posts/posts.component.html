@@ -1,15 +1,16 @@
 <!-- <app-loading *ngIf="loading"></app-loading> -->
 <ul class="u-listReset product-grid">
-  <li class="u-marginBottom" *ngFor="let post of posts">
+  <ul class="u-marginBottom" *ngFor="let post of posts">
     <mat-card class="posts-card">
       <mat-card-header>
-        <mat-card-title>{{ post.fields.name }}</mat-card-title>
-        <mat-card-subtitle><strong>Summary: {{ post.fields.description }} $</strong></mat-card-subtitle>
+        <mat-card-title>{{ post.fields.title }}</mat-card-title>
+        <mat-card-subtitle><strong>{{ post.fields.content.content[0].content[0].value }}
+        </strong></mat-card-subtitle>
       </mat-card-header>
-      <!-- <img mat-card-image src="{{ post.fields.image }}"> -->
+      <img mat-card-image src="{{ post.fields.image.fields.file.url }}">
       <mat-card-actions class="u-marginTopAuto">
-        <a mat-button [routerLink]="['/posts', post.fields.slug]">View details</a>
+        <a mat-button [routerLink]="['/posts', post.fields.title]">View details</a>
       </mat-card-actions>
     </mat-card>
-  </li>
+  </ul>
 </ul>

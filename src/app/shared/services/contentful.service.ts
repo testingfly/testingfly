@@ -1,32 +1,42 @@
-// ./src/app/contentful.service.ts
 import { Injectable } from '@angular/core';
-// import Contentful createClient and type for `Entry`
-import { createClient, Entry } from 'contentful';
+import { createClient, Entry, ContentfulClientApi, EntryCollection } from 'contentful';
+import { environment } from '../../../environments/environment';
+import { BlogPost } from '../models/blog-post';
 
-// configure the service with tokens and content type ids
-// SET YOU OWN CONFIG here
-const CONFIG = {
-  space: '4419diyxun6e',
-  accessToken: 'l61DX8YfcrighlxtU7rzCEt0Ffcq5kIY5f-2RRp9bOk',
-
-  contentTypeIds: {
-    posts: 'posts'
-  }
-}
-
-@Injectable()
+@Injectable({
+  providedIn: "root",
+})
 export class ContentfulService {
-  private cdaClient = createClient({
-    space: CONFIG.space,
-    accessToken: CONFIG.accessToken
-  });
+  private clientApi: ContentfulClientApi;
 
-  constructor() { }
-
-  async getPosts(query?: object): Promise<Entry<any>[]> {
-    const res = await this.cdaClient.getEntries(Object.assign({
-      content_type: CONFIG.contentTypeIds.posts
-    }, query));
-    return res.items;
+  constructor() {
+    this.clientApi = createClient({
+      space: environment.contentful.space,
+      accessToken: environment.contentful.accessToken,
+    });
   }
+
+  /**
+   * Get a single blog post by its slug
+   *
+   * @param slug The slug for the blog post
+   */
+   async getBlogPost(slug: string): Promise<Entry<BlogPost>> {
+    return this.getBlogPosts({
+      "fields.title": slug,
+    }).then((response) => response.items[0]);
+  }
+
+  /**
+   * Get listing of all blog posts
+   *
+   * @param query Filter object
+   */
+  async getBlogPosts(query?: object): Promise<EntryCollection<BlogPost>> {
+    return this.clientApi.getEntries<BlogPost>(
+      Object.assign({}, query, { content_type: "posts" })
+    );
+  }
+  
+  
 }

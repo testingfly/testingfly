@@ -3,6 +3,6 @@ export const environment = {
   // Contentful API authentication credentials
   contentful: {
     space: "4419diyxun6e",
-    accessToken: "l61DX8YfcrighlxtU7rzCEt0Ffcq5kIY5f-2RRp9bOk",
+    accessToken: process.env["CONTENTFUL_READ_ACCESS_TOKEN"] ? process.env["CONTENTFUL_READ_ACCESS_TOKEN"] : "dummy"
   },
 };
